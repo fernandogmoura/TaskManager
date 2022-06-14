@@ -4,15 +4,24 @@
       v-model="drawer"
       app
     >
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            Task Manager
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
+      <v-img
+        max-height="193"
+        src="@/assets/background.png"
+      >
+        <v-avatar
+          height="100px"
+          width="100px"
+          class="avatar-edited"
+        >
+          <img
+            src="@/assets/avatar.png"
+          >
+        </v-avatar>
+        <div class="name-edited">
+          <div class="text-subtitle-1 font-weight-bold">Fernando Moura</div>
+          <div class="text-subtitle-2">fernandogmoura</div>
+        </div>
+      </v-img>
 
       <v-list
         dense
@@ -80,8 +89,22 @@
       }),
     components: {
       'snackbar': require('@/components/Shared/Snackbar.vue').default,
-      'search': require('@/components/Tools/Seach.vue').default,
+      'search': require('@/components/Tools/Search.vue').default,
       
     }
   }
 </script>
+
+<style scoped>
+.avatar-edited {
+  margin-left: 76px;
+  margin-top: 10px;
+}
+
+.name-edited {
+  text-align: center;
+  color: white;
+  padding-top: 5px;
+}
+
+</style>
