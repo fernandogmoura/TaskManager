@@ -17,8 +17,8 @@ export default {
 <style scoped>
 .button-done-sorting {
     position: fixed;
-    left: 50%;
     bottom: 20px;
+    left: 50%;
     transform: translateX(-50%)
 }
 

@@ -7,6 +7,7 @@
     clearable
     hide-details
     outlined
+    persistent
   >
     <template v-slot:append>
       <v-icon

@@ -11,32 +11,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     appTitle: process.env.VUE_APP_TITLE,
-    tasks: [
-      {
-      id: 1, 
-      title: 'Wake Up!',
-      done: false,
-      dueDate: '2022-10-16',
-      },
-      {
-      id: 2, 
-      title: 'Take a Shower!',
-      done: false,
-      dueDate: '2022-10-16',
-      },
-      {
-      id: 3, 
-      title: 'Eat Breakfast!',
-      done: false,
-      dueDate: null
-      }
-    ],
+    search: null,
+    sorting: false,
     snackbar: {
       show: false,
       text: ''
     },
-    search: null,
-    sorting: false,
+    tasks: [],
   },
   mutations: {
 
@@ -79,22 +60,20 @@ export default new Vuex.Store({
 
     setSearch(state, value){
       state.search = value
-      console.log(state.search)
+    },
+
+    setTasks(state, tasks){
+      state.tasks = tasks
     },
 
     toggleSorting(state){
       state.sorting = !state.sorting
     },
 
-    setTasks(state, tasks){
-      console.log('tasks:', tasks)
-      state.tasks = tasks
-    },
-
-
   },
 
   actions: {
+
     addTask({ commit }, newTaskTitle){
       let newTask = {
         id: Date.now(),
@@ -111,7 +90,6 @@ export default new Vuex.Store({
     
     doneTask({ state, commit }, id ){
       let task = state.tasks.filter(task => task.id === id)[0]
-      console.log(task)
       db.collection('tasks').doc({ id: id }).update({
         done: !task.done
       }).then(() => {
@@ -144,18 +122,16 @@ export default new Vuex.Store({
       }) 
     },
 
+    setTasks({ commit }, tasks){
+      db.collection('tasks').set(tasks)
+      commit('setTasks', tasks)
+    },
+
     getTasks({ commit }){
       db.collection('tasks').get().then(tasks => {
         commit('setTasks', tasks)
       })
     },
-
-    setTasks({ commit }, tasks){
-      db.collection('tasks').set(tasks)
-      commit('setTasks', tasks)
-
-    }
-    
   },
   getters: {
     tasksFiltered(state){

@@ -97,16 +97,14 @@
   }
 </script>
 
-<style scoped>
+<style >
 .avatar-edited {
   margin-left: 76px;
   margin-top: 10px;
 }
-
 .name-edited {
   text-align: center;
   color: white;
   padding-top: 5px;
 }
-
 </style>
