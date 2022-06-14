@@ -69,8 +69,11 @@
     </v-app-bar>
 
     <v-main>
+
       <router-view></router-view>
+
       <snackbar />
+      
     </v-main>
   </v-app>
 </template>
@@ -85,7 +88,8 @@
         ],
       }),
     components: {
-      'snackbar': require('@/components/Shared/Snackbar.vue').default
+      'snackbar': require('@/components/Shared/Snackbar.vue').default,
+      
     }
   }
 </script>

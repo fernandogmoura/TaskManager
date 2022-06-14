@@ -11,10 +11,6 @@
     <no-task 
       v-else
     />
-
-    
-
-    
     
   </header>
 </template>

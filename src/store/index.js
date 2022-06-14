@@ -26,7 +26,7 @@ export default new Vuex.Store({
     snackbar: {
       show: false,
       text: ''
-    }
+    },
   },
   mutations: {
     addTask(state, newTaskTitle){
@@ -56,10 +56,8 @@ export default new Vuex.Store({
       setTimeout(() =>{
         state.snackbar.show = true
         state.snackbar.text = text
-      }, timeout);
-
-      
-    }
+      }, timeout); 
+    },
   },
 
   actions: {
