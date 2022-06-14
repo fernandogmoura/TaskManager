@@ -19,21 +19,17 @@
                 </v-list-item-content>
 
                 <v-list-item-action>
-                    <v-btn icon
-                    @click.stop="dialogs.delete = true"
-                    >
-                    <v-icon color="black">mdi-delete</v-icon>
-                    </v-btn>
+
+                    <task-menu 
+                        :task="task"
+                    />
+
                 </v-list-item-action>
             </template>
             </v-list-item>
         <v-divider></v-divider>
 
-        <dialog-delete
-          v-if="dialogs.delete"
-          :task="task"
-          @close="dialogs.delete = false"
-        />
+        
         
         </div>
 </template>
@@ -42,14 +38,13 @@
 export default {
 
     data: () => ({
-        dialogs: {
-            delete: false,
-        }
+        
     }),
     
     props: ['task'],
     components: {
-        'dialog-delete': require('@/components/Shared/Dialogs/DialogDelete.vue').default
+        'dialog-delete': require('@/components/Shared/Dialogs/DialogDelete.vue').default,
+        'task-menu': require('@/components/TaskMenu.vue').default
     }
     
 }
