@@ -11,13 +11,13 @@ export default new Vuex.Store({
       id: 1, 
       title: 'Wake Up!',
       done: false,
-      dueDate: '2002-05-03',
+      dueDate: '2022-10-16',
       },
       {
       id: 2, 
       title: 'Take a Shower!',
       done: false,
-      dueDate: '2002-07-06',
+      dueDate: '2022-10-16',
       },
       {
       id: 3, 
@@ -30,6 +30,7 @@ export default new Vuex.Store({
       show: false,
       text: ''
     },
+    search: null
   },
   mutations: {
 
@@ -76,6 +77,11 @@ export default new Vuex.Store({
       task.dueDate = payload.dueDate
     },
 
+    setSearch(state, value){
+      state.search = value
+      console.log(state.search)
+    }
+
 
   },
 
@@ -100,6 +106,12 @@ export default new Vuex.Store({
       commit('showSnackbar', 'Date updated!')
     }
   },
-  modules: {
+  getters: {
+    tasksFiltered(state){
+      if(!state.search){
+        return state.tasks
+      }
+      return state.tasks.filter(task => task.title.toLowerCase().includes(state.search.toLowerCase()))
+    }
   }
 })
