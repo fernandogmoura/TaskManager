@@ -1,19 +1,2 @@
-# task-manager
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[PT=BR] App criado com o intuito de testar meus conhecimentos. :) Tive que re-upar ele novamente pois tive uns problemas com a minha conta do github antiga.
+[ENG] App created with the intention to test my knowledges. :) Because some troubles that I had with my last account on github, i'm re-uploading the code.
