@@ -18,13 +18,23 @@
                 <v-list-item-title>{{ task.title }}</v-list-item-title>
                 </v-list-item-content>
 
-                <v-list-item-action>
+                <v-list-item-action v-if="task.dueDate">
+                    
+                    <v-list-item-action-text>
+                        <v-icon small>mdi-calendar</v-icon>
+                        <span>{{ task.dueDate | niceDate }}</span>
+                    </v-list-item-action-text>
 
+                </v-list-item-action>
+
+                <v-list-item-action>
+                    
                     <task-menu 
                         :task="task"
                     />
 
                 </v-list-item-action>
+                
             </template>
             </v-list-item>
         <v-divider></v-divider>
@@ -35,13 +45,16 @@
 </template>
 
 <script>
+import { format } from 'date-fns'
+
 export default {
 
-    data: () => ({
-        
-    }),
-    
     props: ['task'],
+    filters: {
+        niceDate(value){
+            return format(new Date(value), 'MMM d')
+        }
+    },
     components: {
         'dialog-delete': require('@/components/Shared/Dialogs/DialogDelete.vue').default,
         'task-menu': require('@/components/TaskMenu.vue').default

@@ -1,15 +1,21 @@
 <template>
   <v-text-field
-      v-model="newTaskTitle"
-      @click:append="addTask()"
-      @keyup.enter="addTask()"
-      class="pa-3 pb-0"
-      clearable
-      hide-details
-      outlined
-      label="New Task"
-      append-icon="mdi-plus"
-    ></v-text-field>
+    v-model="newTaskTitle"   
+    @keyup.enter="addTask()"
+    class="pa-3 pb-0"
+    label="New Task"
+    clearable
+    hide-details
+    outlined
+  >
+    <template v-slot:append>
+      <v-icon
+        @click:append="addTask()"
+        color="primary"
+        :disabled="addTaskInvalid"
+      >mdi-plus</v-icon>
+    </template>
+  </v-text-field>
 </template>
 
 <script>
@@ -20,9 +26,16 @@ export default {
   }),
   methods: {
     addTask(){
-        this.$store.dispatch('addTask', this.newTaskTitle)
-        this.newTaskTitle = ''
+        if(!this.addTaskInvalid){
+          this.$store.dispatch('addTask', this.newTaskTitle)
+          this.newTaskTitle = ''
+        } 
       },
+  },
+  computed: {
+    addTaskInvalid(){
+      return !this.newTaskTitle
+    }
   }
 
 }
