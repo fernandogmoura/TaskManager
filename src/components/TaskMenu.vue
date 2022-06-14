@@ -39,6 +39,12 @@
           :task="task"
           @close="dialogs.delete = false"
         />
+
+        <dialog-edit
+          v-if="dialogs.edit"
+          :task="task"
+          @close="dialogs.edit = false"
+        />
     </div>
 </template>
 
@@ -51,8 +57,8 @@
             title: 'Edit',
             icon: 'mdi-pencil',
             click() {
-                console.log('Edit')
-            }
+                this.dialogs.edit = true
+            },
         },
         { 
             title: 'Due Date',
@@ -71,6 +77,7 @@
         ],
         dialogs: {
             delete: false,
+            edit: false,
         }
     }),
     methods: {
@@ -80,6 +87,7 @@
     },
     components: {
         'dialog-delete': require('@/components/Shared/Dialogs/DialogDelete.vue').default,
+        'dialog-edit': require('@/components/Shared/Dialogs/DialogEdit.vue').default,
     },
 
   }
