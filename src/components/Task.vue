@@ -1,7 +1,7 @@
 <template>
   <div>
         <v-list-item
-            @click="$store.commit('doneTask', task.id)"
+            @click="$store.dispatch('doneTask', task.id)"
             :class="{'cyan lighten-5' : task.done}"
             :ripple="false"
             class="white"
@@ -77,7 +77,7 @@ export default {
 }
 
 .sortable-drag {
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    color: black;
 }
 
 </style>

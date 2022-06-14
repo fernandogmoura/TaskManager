@@ -1,6 +1,10 @@
 import { setTimeout } from 'core-js'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Localbase from 'localbase'
+
+let db = new Localbase('db')
+db.config.debug = false
 
 Vue.use(Vuex)
 
@@ -36,20 +40,13 @@ export default new Vuex.Store({
   },
   mutations: {
 
-    addTask(state, newTaskTitle){
-      let newTask = {
-        id: Date.now(),
-        title: newTaskTitle,
-        done: false,
-        dueDate: null
-      }
+    addTask(state, newTask){
       state.tasks.push(newTask)
     },
 
     doneTask(state, id){
       let task = state.tasks.filter(task => task.id === id)[0]
       task.done = !task.done
-      console.log(process.env.VUE_APP_TITLE)
     },
 
     deleteTask(state, id){
@@ -99,24 +96,66 @@ export default new Vuex.Store({
 
   actions: {
     addTask({ commit }, newTaskTitle){
-      commit('addTask', newTaskTitle)
-      commit('showSnackbar', 'Task added!')
+      let newTask = {
+        id: Date.now(),
+        title: newTaskTitle,
+        done: false,
+        dueDate: null
+      }
+      db.collection('tasks').add(newTask).then(() => {
+        commit('addTask', newTask)
+        commit('showSnackbar', 'Task added!')
+      })
+      
     },
-
-    deleteTask({ commit }, id ){
-      commit('deleteTask', id)
-      commit('showSnackbar', 'Task deleted!')
+    
+    doneTask({ state, commit }, id ){
+      let task = state.tasks.filter(task => task.id === id)[0]
+      console.log(task)
+      db.collection('tasks').doc({ id: id }).update({
+        done: !task.done
+      }).then(() => {
+        commit('doneTask', id)
+      })
+    },
+    
+    deleteTask({ commit }, id) {
+      db.collection('tasks').doc({ id: id }).delete().then(() => {
+        commit('deleteTask', id)
+        commit('showSnackbar', 'Task deleted!')
+      })
     },
 
     updateTaskTitle({ commit }, payload){
-      commit('updateTaskTitle', payload)
-      commit('showSnackbar', 'Task updated!')
+      db.collection('tasks').doc({ id: payload.id }).update({
+        title: payload.title
+      }).then(() => {
+        commit('updateTaskTitle', payload)
+        commit('showSnackbar', 'Task updated!')
+      })
     },
 
     updateTaskDueDate({ commit }, payload){
-      commit('updateTaskDueDate', payload)
-      commit('showSnackbar', 'Date updated!')
+      db.collection('tasks').doc({ id: payload.id }).update({
+        dueDate: payload.dueDate
+      }).then(() => {
+        commit('updateTaskDueDate', payload)
+        commit('showSnackbar', 'Date updated!')
+      }) 
+    },
+
+    getTasks({ commit }){
+      db.collection('tasks').get().then(tasks => {
+        commit('setTasks', tasks)
+      })
+    },
+
+    setTasks({ commit }, tasks){
+      db.collection('tasks').set(tasks)
+      commit('setTasks', tasks)
+
     }
+    
   },
   getters: {
     tasksFiltered(state){

@@ -23,7 +23,7 @@ export default {
 <style>
 .no-tasks {
   position: absolute;
-  left: 53%;
+  left: 52%;
   top: 35%;
   transform: translate(-50%, -50%);
 }

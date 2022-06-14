@@ -90,7 +90,9 @@
     components: {
       'snackbar': require('@/components/Shared/Snackbar.vue').default,
       'search': require('@/components/Tools/Search.vue').default,
-      
+    },
+    mounted () {
+      this.$store.dispatch('getTasks')
     }
   }
 </script>
