@@ -4,12 +4,11 @@
     >
       {{ $store.state.snackbar.text }}
 
-      <template v-slot:action="{ attrs }">
+      <template v-slot:action>
         <v-btn
-          color="primary"
-          text
-          v-bind="attrs"
           @click="$store.state.snackbar.show = false"
+          color="red"
+          text
         >
           Close
         </v-btn>

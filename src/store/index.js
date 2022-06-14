@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    appTitle: process.env.VUE_APP_TITLE,
     tasks: [
       {
       id: 1, 
@@ -30,7 +31,8 @@ export default new Vuex.Store({
       show: false,
       text: ''
     },
-    search: null
+    search: null,
+    sorting: false,
   },
   mutations: {
 
@@ -47,6 +49,7 @@ export default new Vuex.Store({
     doneTask(state, id){
       let task = state.tasks.filter(task => task.id === id)[0]
       task.done = !task.done
+      console.log(process.env.VUE_APP_TITLE)
     },
 
     deleteTask(state, id){
@@ -80,7 +83,16 @@ export default new Vuex.Store({
     setSearch(state, value){
       state.search = value
       console.log(state.search)
-    }
+    },
+
+    toggleSorting(state){
+      state.sorting = !state.sorting
+    },
+
+    setTasks(state, tasks){
+      console.log('tasks:', tasks)
+      state.tasks = tasks
+    },
 
 
   },
